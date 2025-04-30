@@ -38,14 +38,30 @@ public class Player {
     // A method to check if a specific card can be played
     public boolean canPlayCard(Card card, Card topCard) {
         // Wild cards are always playable
-        if (card.getType().equals("Wild") || card.getType().equals("Wild Draw Four")) {
+        if (card instanceof WildCard || card instanceof WildDrawFour) {
             return true;
         }
-        // Check for matches (same color OR same type OR same value for number cards)
-        return card.getColor().equals(topCard.getColor()) ||
-               card.getType().equals(topCard.getType()) ||
-               (card.getType().equals("Number") && topCard.getType().equals("Number") && 
-                card.getValue() == topCard.getValue());
+        
+        // Check color match
+        if (card.getColor().equals(topCard.getColor())) {
+            return true;
+        }
+        
+        // Special cards handling - match by actual type, not just the string
+        if ((card instanceof DrawTwo && topCard instanceof DrawTwo) ||
+            (card instanceof Reverse && topCard instanceof Reverse) ||
+            (card instanceof Skip && topCard instanceof Skip)) {
+            return true;
+        }
+        
+        // Check number cards by type and value
+        if (card.getType().equals("Number") && topCard.getType().equals("Number") &&
+            card.getValue() == topCard.getValue()) {
+            return true;
+        }
+        
+        // If none of the above conditions are met
+        return false;
     }
 
     // A method to remove a card from the player's hand

@@ -7,6 +7,6 @@ public class GameOptionPane extends JOptionPane {
 		super();
 		this.setFocusable(false);
 		this.setForeground(Color.BLUE);
-	this.setBackground(new Color(96,181,255));
+	this.setBackground(new Color(0,162,96));
 	}
 }

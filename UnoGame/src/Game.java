@@ -25,10 +25,10 @@ public class Game {
         
         // Check if the top card is a special card and get a different one if it is
         while (TopCard.getType().equals("Wild") || 
-               TopCard.getType().equals("Wild_Four") || 
+               TopCard.getType().equals("Wild Draw Four") || 
                TopCard.getType().equals("Skip") || 
                TopCard.getType().equals("Reverse") || 
-               TopCard.getType().equals("Draw_Two")) {
+               TopCard.getType().equals("Draw Two")) {
             
             // Put the card back in the deck and shuffle
             UnoDeck.addCard(TopCard);
@@ -38,13 +38,12 @@ public class Game {
             TopCard = UnoDeck.drawCard();
         }
         
-        scanner = new Scanner(System.in);
+      
         players = new ArrayList<>(); // Initialize the players list
         
         for (int i = 0; i < numPlayers; i++) {
-            System.out.println("Enter name for Player " + (i + 1) + ": ");
-            String name = scanner.next();
-            Player P = new Player(name);
+            int j = i+1;
+            Player P = new Player(""+j);
             initialCards(P);
             players.add(P);
         }
@@ -73,6 +72,9 @@ public class Game {
     // Method to get the deck
     public Deck getDeck() {
         return UnoDeck;
+    }
+    public String getDirection() {
+    	return this.Direction;
     }
 
     // Method to initialize the player's hand with 7 cards
@@ -132,7 +134,7 @@ public class Game {
     }
     
     // Method to advance to the next player
-    private void advanceToNextPlayer() {
+    public void advanceToNextPlayer() {
         if (Direction.equals("right")) {
             CurrentPlayer = (CurrentPlayer + 1) % numPlayers; // Move to the next player
         } else {
@@ -153,7 +155,7 @@ public class Game {
     }
 
     // Method to handle special card effects
-    private void handleSpecialCards() {
+    public void handleSpecialCards() {
         Card topCard = getTopCard();
 
         // Check for special card effects
@@ -172,7 +174,7 @@ public class Game {
 
     // Method to handle Skip card logic
     public void Skip() {
-        System.out.println("Skip card played! Next player's turn skipped.");
+       
         // Skip the next player's turn
         advanceToNextPlayer(); // Skip once more
     }
@@ -195,7 +197,7 @@ public class Game {
         } else {
             Direction = "right";
         }
-        System.out.println("Direction reversed to " + Direction);
+   
     }
     
     // Method to handle game logic after each turn

@@ -12,7 +12,7 @@ public class Deck {
 
     // Method to initialize the deck with all card types
     private void initializeDeck() {
-        // Add number cards and special cards to deck
+        // Add number cards and special cards to deck card(String color, String type, int value)
         for (String color : new String[] { "Red", "Green", "Blue", "Yellow" }) {
             cards.add(new Card(color, "Number", 0)); // one 0 card for each color
 
